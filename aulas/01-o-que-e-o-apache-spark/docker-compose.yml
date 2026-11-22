@@ -1,0 +1,18 @@
+name: curso-spark-aula01
+
+services:
+  jupyter:
+    image: quay.io/jupyter/pyspark-notebook:spark-4.3.0
+    container_name: aula01
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:-aula-local-trocar}
+      JUPYTER_ENABLE_LAB: "yes"
+      PYTHONPATH: "/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.9-src.zip"
+      SPARK_DRIVER_MEMORY: "8g"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    shm_size: "2gb"
+    restart: "no"
