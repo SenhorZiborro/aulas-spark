@@ -4,7 +4,7 @@ Bem-vindo ao repositório oficial da série de vídeos práticos sobre Apache Sp
 
 ## O que tem neste repositório?
 
-O material está organizado cronologicamente acompanhando as aulas, indo desde a subida da infraestrutura até a execução no Kubernetes, observabilidade e motores acelerados.
+O material está organizado cronologicamente acompanhando as aulas, indo desde a subida da infraestrutura até a execução no Kubernetes, observabilidade e aceleradores.
 
 Navegando pela estrutura de pastas, você vai encontrar laboratórios cobrindo os seguintes temas práticos:
 
@@ -12,7 +12,7 @@ Navegando pela estrutura de pastas, você vai encontrar laboratórios cobrindo o
 * **Fundamentos e SQL:** DataFrames, tipos de dados, funções, joins, Window Functions, `SELECT` em profundidade e SQL parametrizado.
 * **Fontes de Dados e Streaming:** Formatos de arquivo, metastore, particionamento e Structured Streaming.
 * **Performance:** Catalyst, planos de execução, shuffle, memória, cache, AQE e data skew.
-* **Kubernetes e Ecossistema:** Spark Kubernetes Operator, observabilidade, Data Lakes com MinIO, Kafka, Delta e Iceberg, e motores acelerados.
+* **Kubernetes e Ecossistema:** Spark Kubernetes Operator, observabilidade, Data Lakes com MinIO, Kafka, Delta e Iceberg, e aceleradores.
 
 ## Como utilizar o material
 
