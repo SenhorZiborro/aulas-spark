@@ -1,0 +1,62 @@
+name: curso-spark-aula03
+
+services:
+  spark-master:
+    image: quay.io/jupyter/pyspark-notebook:spark-4.3.0
+    container_name: aula03-master
+    command: ["spark-class", "org.apache.spark.deploy.master.Master", "--host", "spark-master", "--port", "7077", "--webui-port", "8080"]
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    healthcheck:
+      disable: true
+    restart: "no"
+
+  spark-worker-1:
+    image: quay.io/jupyter/pyspark-notebook:spark-4.3.0
+    container_name: aula03-worker-1
+    command: ["spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077", "--cores", "2", "--memory", "2g", "--webui-port", "8081"]
+    environment:
+      SPARK_WORKER_DIR: "/tmp/spark-work"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - spark-master
+    healthcheck:
+      disable: true
+    shm_size: "1gb"
+    restart: "no"
+
+  spark-worker-2:
+    image: quay.io/jupyter/pyspark-notebook:spark-4.3.0
+    container_name: aula03-worker-2
+    command: ["spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077", "--cores", "2", "--memory", "2g", "--webui-port", "8081"]
+    environment:
+      SPARK_WORKER_DIR: "/tmp/spark-work"
+    ports:
+      - "8082:8081"
+    depends_on:
+      - spark-master
+    healthcheck:
+      disable: true
+    shm_size: "1gb"
+    restart: "no"
+
+  jupyter:
+    image: quay.io/jupyter/pyspark-notebook:spark-4.3.0
+    container_name: aula03
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:-aula-local-trocar}
+      JUPYTER_ENABLE_LAB: "yes"
+      PYTHONPATH: "/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.9-src.zip"
+      SPARK_DRIVER_MEMORY: "4g"
+      SPARK_MASTER_URL: "spark://spark-master:7077"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    depends_on:
+      - spark-master
+    shm_size: "2gb"
+    restart: "no"
